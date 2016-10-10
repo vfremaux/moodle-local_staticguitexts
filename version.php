@@ -14,20 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package    local_staticguitexts
- * @category   local
- * @author     Valery Fremaux <valery.fremaux@gmail.com>
- * @copyright  2010 onwards Valery Fremaux (http://www.mylearningfactory.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2013121900;   // The (date) version of this plugin.
-$plugin->requires = 2015050500;   // Requires this Moodle version.
+$plugin->version  = 2013121900;   // The (date) version of this plugin
+$plugin->requires = 2011120500;   // Requires this Moodle version
 $plugin->component = 'local_staticguitexts';
-$plugin->release = '2.9.0 (Build 2013121900)';
+$plugin->release = '2.7.0 (Build 2013121900)';
+$plugin->maturity = MATURITY_RC;
 
-// Non moodle attributes.
-$plugin->codeincrement = '2.9.0000';
+// Non moodle attributes
+$plugin->codeincrement = '2.7.0000';
