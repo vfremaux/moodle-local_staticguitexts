@@ -33,7 +33,7 @@ class ValueEditForm extends moodleform {
         $maxfiles = 99;                // TODO: add some setting
         $maxbytes = $CFG->maxbytes; // TODO: add some setting
         $this->editoroptions = array('trusttext' => true, 'subdirs' => false, 'maxfiles' => $maxfiles, 'maxbytes' => $maxbytes, 'context' => $coursecontext);
-        parent::moodleform();
+        parent::__construct();
     }
 
     function definition() {
