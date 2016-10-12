@@ -14,29 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @package     local_staticguitexts
+ * àcategory    local
+ * @author      Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright   Valery Fremaux <valery.fremaux@gmail.com> (MyLearningFactory.com)
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 defined('MOODLE_INTERNAL') || die();
 
-require_once $CFG->libdir.'/formslib.php';
+require_once($CFG->libdir.'/formslib.php');
 
 class ValueEditForm extends moodleform {
 
     private $key;
 
-    var $editoroptions;
+    protected $editoroptions;
 
-    function __construct($key) {
+    public function __construct($key) {
         global $CFG, $COURSE;
 
         $this->key = $key;
 
         $coursecontext = context_course::instance(SITEID);
-        $maxfiles = 99;                // TODO: add some setting
-        $maxbytes = $CFG->maxbytes; // TODO: add some setting
-        $this->editoroptions = array('trusttext' => true, 'subdirs' => false, 'maxfiles' => $maxfiles, 'maxbytes' => $maxbytes, 'context' => $coursecontext);
+        $maxfiles = 99; // TODO: add some setting.
+        $maxbytes = $CFG->maxbytes; // TODO: add some setting.
+        $this->editoroptions = array('trusttext' => true,
+                                     'subdirs' => false,
+                                     'maxfiles' => $maxfiles,
+                                     'maxbytes' => $maxbytes,
+                                     'context' => $coursecontext);
         parent::moodleform();
     }
 
-    function definition() {
+    public function definition() {
 
         $mform = & $this->_form;
 
@@ -55,7 +66,7 @@ class ValueEditForm extends moodleform {
         $mform->addElement('submit','go', get_string('update'));
     }
 
-    function set_data($defaults) {
+    public function set_data($defaults) {
         global $COURSE;
 
         $context = context_course::instance($COURSE->id);
@@ -63,8 +74,10 @@ class ValueEditForm extends moodleform {
         $defaults->valueformat = FORMAT_HTML;
 
         $drafteditorid = file_get_submitted_draft_itemid('value_editor');
-        $currenttext = file_prepare_draft_area($drafteditorid, $context->id, 'local_staticguitexts', $this->key, 0, $this->editoroptions, $defaults->value);
-        $defaults = file_prepare_standard_editor($defaults, 'value', $this->editoroptions, $context, 'local_staticguitexts', $this->key, 0);
+        $currenttext = file_prepare_draft_area($drafteditorid, $context->id, 'local_staticguitexts', $this->key, 0,
+                                               $this->editoroptions, $defaults->value);
+        $defaults = file_prepare_standard_editor($defaults, 'value', $this->editoroptions, $context,
+                                                 'local_staticguitexts', $this->key, 0);
         $defaults->value = array('text' => $currenttext, 'format' => FORMAT_HTML, 'itemid' => $drafteditorid);
 
         parent::set_data($defaults);
