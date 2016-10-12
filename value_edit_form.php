@@ -44,7 +44,7 @@ class ValueEditForm extends moodleform {
                                      'maxfiles' => $maxfiles,
                                      'maxbytes' => $maxbytes,
                                      'context' => $coursecontext);
-        parent::moodleform();
+        parent::__construct();
     }
 
     public function definition() {
@@ -63,7 +63,7 @@ class ValueEditForm extends moodleform {
 
         $mform->addElement('editor', 'value', $keystr, array('cols' => 60), $this->editoroptions);
 
-        $mform->addElement('submit','go', get_string('update'));
+        $mform->addElement('submit', 'go', get_string('update'));
     }
 
     public function set_data($defaults) {
