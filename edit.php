@@ -37,7 +37,7 @@ $PAGE->set_context($context);
 require_login();
 require_capability('local/staticguitexts:edit', $coursecontext);
 
-$fromurl = required_param('from', PARAM_URL);
+$fromurl = urldecode(required_param('from', PARAM_TEXT));
 $key = required_param('key', PARAM_TEXT);
 
 $streditguitexts = get_string('adminstrings', 'local_staticguitexts');
@@ -46,14 +46,12 @@ $PAGE->set_url('/local/staticguitexts/edit.php');
 $PAGE->set_title("$streditguitexts");
 $PAGE->set_heading("$streditguitexts");
 
-$mform = new ValueEditForm($key);
-$data = new StdClass;
-$data->value = @$CFG->$key;
-$data->valueformat = FORMAT_HTML;
-$data->from = $fromurl;
-$data->key = $key;
-
-$mform->set_data($data);
+$mform = new ValueEditForm($key, array('fromurl' => $fromurl));
+$formdata = new StdClass;
+$formdata->value = @$CFG->$key;
+$formdata->valueformat = FORMAT_HTML;
+$formdata->from = $fromurl;
+$formdata->key = $key;
 
 if ($data = $mform->get_data()) {
     $editor = file_get_submitted_draft_itemid('value');
@@ -62,6 +60,7 @@ if ($data = $mform->get_data()) {
     redirect($fromurl);
 } else {
     echo $OUTPUT->header();
+    $mform->set_data($formdata);
     $mform->display();
 }
 
