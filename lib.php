@@ -76,7 +76,7 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
         $url = urlencode($returnurl);
         $params = array('key' => $key, 'from' => $url, 'extra' => $extracapability);
         $targeturl = new moodle_url('/local/staticguitexts/edit.php', $params);
-        $out .= '<br/><a href="'.$targeturl.'">'.$OUTPUT->pix_icon('t/edit', get_string('update'), 'core').'</a>';
+        $out .= '<br/><a href="'.$targeturl.'"><img class="iconsmall" src="'.$OUTPUT->pix_url('t/edit', 'core').'" /></a>';
     }
     $out .= $OUTPUT->box_end();
 
