@@ -16,7 +16,7 @@
 
 /**
  * Version details.
- * 
+ *
  * @package    local_staticguitexts
  * @category   local
  * @author     Valery Fremaux (valery.fremaux@gmail.com)

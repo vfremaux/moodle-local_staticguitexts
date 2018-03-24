@@ -55,7 +55,8 @@ $formdata->key = $key;
 
 if ($data = $mform->get_data()) {
     $editor = file_get_submitted_draft_itemid('value');
-    $data->value = file_save_draft_area_files($editor, $coursecontext->id, 'local_staticguitexts', $key, 0, $mform->editoroptions, $data->value['text']);
+    $data->value = file_save_draft_area_files($editor, $coursecontext->id, 'local_staticguitexts',
+                                              $key, 0, $mform->editoroptions, $data->value['text']);
     set_config($key, $data->value);
     redirect($fromurl);
 } else {

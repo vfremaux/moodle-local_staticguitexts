@@ -23,8 +23,14 @@
  */
 
 // This is a bit more complex security resolution for script that may be called before setup.php.
-if (!defined('MOODLE_EARLY_INTERNAL')) {
-    defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || defined('MOODLE_EARLY_INTERNAL') || die();
+
+/**
+ * This function is not implemented in thos plugin, but is needed to mark
+ * the vf documentation custom volume availability.
+ */
+function local_staticguitexts_supports_feature() {
+    assert(1);
 }
 
 /**
