@@ -14,9 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-// This is a bit more complex security resolution for script that may be called before setup.php
+/**
+ * @package     local_staticguitexts
+ * àcategory    local
+ * @author      Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright   Valery Fremaux <valery.fremaux@gmail.com> (MyLearningFactory.com)
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// This is a bit more complex security resolution for script that may be called before setup.php.
 if (!defined('MOODLE_EARLY_INTERNAL')) {
     defined('MOODLE_INTERNAL') || die();
+}
+
+/**
+ * This function is not implemented in thos plugin, but is needed to mark
+ * the vf documentation custom volume availability.
+ */
+function local_staticguitexts_supports_feature() {
+    assert(1);
 }
 
 /**
@@ -55,33 +71,37 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
         $extracap = has_capability($extracapability, $syscontext);
     }
 
-    if (has_capability('local/staticguitexts:edit', context_course::instance(SITEID)) || has_capability('local/staticguitexts:edit', $syscontext) || $extracap) {
+    if (has_capability('local/staticguitexts:edit', context_course::instance(SITEID)) ||
+            has_capability('local/staticguitexts:edit', $syscontext) || $extracap) {
         $url = urlencode($returnurl);
-        $out .= "<br/><a href=\"{$CFG->wwwroot}/local/staticguitexts/edit.php?key={$key}&amp;from=$url&amp;extra={$extracapability}\"><img class=\"iconsmall\" src=\"".$OUTPUT->pix_url('t/edit', 'core')."\" /></a>";
+        $params = array('key' => $key, 'from' => $url, 'extra' => $extracapability);
+        $targeturl = new moodle_url('/local/staticguitexts/edit.php', $params);
+        $out .= '<br/><a href="'.$targeturl.'"><img class="iconsmall" src="'.$OUTPUT->pix_url('t/edit', 'core').'" /></a>';
     }
     $out .= $OUTPUT->box_end();
 
-    if ($return) return $out;
+    if ($return) {
+        return $out;
+    }
     echo $out;
 }
 
 function local_staticguitexts_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload) {
-    global $CFG, $DB;
 
     if ($context->contextlevel != CONTEXT_COURSE) {
         return false;
     }
 
-    // any file area but within the local_staticguitexts component scope...
+    // Any file area but within the local_staticguitexts component scope...
 
     $fs = get_file_storage();
-    array_shift($args); // remove useless itemid
+    array_shift($args); // Remove useless itemid.
     $relativepath = implode('/', $args);
     $fullpath = "/$context->id/local_staticguitexts/$filearea/0/$relativepath";
     if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
         return false;
     }
 
-    // finally send the file
-    send_stored_file($file, 0, 0, false); // download MUST be forced - security!
+    // Finally send the file.
+    send_stored_file($file, 0, 0, false); // Download MUST be forced - security!
 }
