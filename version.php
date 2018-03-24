@@ -16,7 +16,7 @@
 
 /**
  * Version details.
- * 
+ *
  * @package    local_staticguitexts
  * @category   local
  * @author     Valery Fremaux (valery.fremaux@gmail.com)
@@ -26,8 +26,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2013121900;   // The (date) version of this plugin
-$plugin->requires = 2015072400;   // Requires this Moodle version
+$plugin->version  = 2013121900;   // The (date) version of this plugin.
+$plugin->requires = 2015072400;   // Requires this Moodle version.
 $plugin->component = 'local_staticguitexts';
 $plugin->release = '3.1.0 (Build 2013121900)';
 $plugin->maturity = MATURITY_STABLE;
