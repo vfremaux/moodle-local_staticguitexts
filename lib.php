@@ -23,7 +23,9 @@
  */
 
 // This is a bit more complex security resolution for script that may be called before setup.php.
-defined('MOODLE_INTERNAL') || defined('MOODLE_EARLY_INTERNAL') || die();
+if (!defined('MOODLE_EARLY_INTERNAL')) {
+    defined('MOODLE_INTERNAL') || die();
+}
 
 /**
  * This function is not implemented in thos plugin, but is needed to mark
@@ -85,7 +87,6 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
 }
 
 function local_staticguitexts_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload) {
-    global $CFG, $DB;
 
     if ($context->contextlevel != CONTEXT_COURSE) {
         return false;
