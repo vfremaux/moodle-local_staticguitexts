@@ -32,7 +32,7 @@ class ValueEditForm extends moodleform {
     public $editoroptions;
 
     public function __construct($key, $customdata) {
-        global $CFG, $COURSE;
+        global $CFG;
 
         $this->key = $key;
 
