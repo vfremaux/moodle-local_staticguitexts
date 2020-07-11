@@ -27,14 +27,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version  = 2013121900;   // The (date) version of this plugin.
-$plugin->requires = 2018112800;   // Requires this Moodle version.
+$plugin->requires = 2019051100;   // Requires this Moodle version.
 $plugin->component = 'local_staticguitexts';
-$plugin->release = '3.6.0 (Build 2013121900)';
+$plugin->release = '3.7.0 (Build 2013121900)';
 $plugin->maturity = MATURITY_STABLE;
 
 // Non moodle attributes.
-<<<<<<< HEAD
-$plugin->codeincrement = '3.5.0000';
-=======
-$plugin->codeincrement = '3.6.0000';
->>>>>>> MOODLE_36_STABLE
+$plugin->codeincrement = '3.7.0000';
