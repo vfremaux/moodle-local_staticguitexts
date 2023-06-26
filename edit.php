@@ -57,7 +57,9 @@ if ($data = $mform->get_data()) {
     $editor = file_get_submitted_draft_itemid('value');
     $data->value = file_save_draft_area_files($editor, $coursecontext->id, 'local_staticguitexts',
                                               $key, 0, $mform->editoroptions, $data->value['text']);
+    $oldvalue = get_config('local_staticguitexts', $key);
     set_config($key, $data->value);
+    add_to_config_log($key, $oldvalue, $data->value, 'moodle');
     redirect($fromurl);
 } else {
     echo $OUTPUT->header();
