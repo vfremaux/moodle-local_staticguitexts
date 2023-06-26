@@ -45,7 +45,7 @@ function local_staticguitexts_supports_feature() {
  */
 
 function local_print_static_text($key, $returnurl, $extracapability = false, $return = false) {
-    global $CFG, $COURSE, $USER, $OUTPUT;
+    global $CFG, $COURSE, $USER, $OUTPUT, $SITE;
 
     $out = '';
 
@@ -55,8 +55,19 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $txt = file_rewrite_pluginfile_urls(@$CFG->$key, 'pluginfile.php', $context->id, 'local_staticguitexts', $key, 0);
     $txt = str_replace('[[WWWROOT]]', preg_replace('/https?:\/\//', '', $CFG->wwwroot), $txt);
     $txt = str_replace('[[COURSEID]]', $COURSE->id, $txt);
+    $txt = str_replace('[[COURSENAME]]', format_string($COURSE->fullname), $txt);
+    $txt = str_replace('[[COURSESHORT]]', $COURSE->shortname, $txt);
     $txt = str_replace('[[USERID]]', $USER->id, $txt);
-    $out .= $OUTPUT->box_start('statictext');
+    $txt = str_replace('[[SITENAME]]', format_string($SITE->fullname), $txt);
+    $txt = str_replace('[[SITESHORT]]', $SITE->shortname, $txt);
+    $txt = str_replace('[[USERNAME]]', $USER->username, $txt);
+    $txt = str_replace('[[FIRSTNAME]]', $USER->firstname, $txt);
+    $txt = str_replace('[[LASTNAME]]', $USER->lastname, $txt);
+    $hasclass = '';
+    if (!empty($txt)) {
+        $hasclass = 'has-text';
+    }
+    $out .= $OUTPUT->box_start('statictext '.$hasclass);
     $opt = new StdClass;
     $opt->para = false;
     $opt->trusted = true;
