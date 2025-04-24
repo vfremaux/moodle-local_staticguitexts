@@ -60,9 +60,9 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $txt = str_replace('[[USERID]]', $USER->id, $txt);
     $txt = str_replace('[[SITENAME]]', format_string($SITE->fullname), $txt);
     $txt = str_replace('[[SITESHORT]]', $SITE->shortname, $txt);
-    $txt = str_replace('[[USERNAME]]', $USER->username, $txt);
-    $txt = str_replace('[[FIRSTNAME]]', $USER->firstname, $txt);
-    $txt = str_replace('[[LASTNAME]]', $USER->lastname, $txt);
+    $txt = str_replace('[[USERNAME]]', $USER->username ?? '', $txt);
+    $txt = str_replace('[[FIRSTNAME]]', $USER->firstname ?? '', $txt);
+    $txt = str_replace('[[LASTNAME]]', $USER->lastname ?? '', $txt);
     $hasclass = '';
     if (!empty($txt)) {
         $hasclass = 'has-text';
