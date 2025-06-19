@@ -60,9 +60,9 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $txt = str_replace('[[USERID]]', $USER->id, $txt);
     $txt = str_replace('[[SITENAME]]', format_string($SITE->fullname), $txt);
     $txt = str_replace('[[SITESHORT]]', $SITE->shortname, $txt);
-    $txt = str_replace('[[USERNAME]]', $USER->username, $txt);
-    $txt = str_replace('[[FIRSTNAME]]', $USER->firstname, $txt);
-    $txt = str_replace('[[LASTNAME]]', $USER->lastname, $txt);
+    $txt = str_replace('[[USERNAME]]', $USER->username ?? '', $txt);
+    $txt = str_replace('[[FIRSTNAME]]', $USER->firstname ?? '', $txt);
+    $txt = str_replace('[[LASTNAME]]', $USER->lastname ?? '', $txt);
     $hasclass = '';
     if (!empty($txt)) {
         $hasclass = 'has-text';
@@ -87,7 +87,7 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
         $url = urlencode($returnurl);
         $params = array('key' => $key, 'from' => $url, 'extra' => $extracapability);
         $targeturl = new moodle_url('/local/staticguitexts/edit.php', $params);
-        $out .= '<br/><a href="'.$targeturl.'">'.$OUTPUT->pix_icon('t/edit', get_string('update'), 'core').'</a>';
+        $out .= '<br/><a href="'.$targeturl.'">'.$OUTPUT->pix_icon('edit', get_string('update'), 'local_staticguitexts').'</a>';
     }
     $out .= $OUTPUT->box_end();
 
@@ -115,4 +115,13 @@ function local_staticguitexts_pluginfile($course, $cm, $context, $filearea, $arg
 
     // Finally send the file.
     send_stored_file($file, 0, 0, false); // Download MUST be forced - security!
+}
+
+/**
+ * Get icon mapping for font-awesome.
+ */
+function local_staticguitexts_get_fontawesome_icon_map() {
+    return [
+        'local_staticguitexts:edit' => 'fa-pen-to-square',
+    ];
 }
