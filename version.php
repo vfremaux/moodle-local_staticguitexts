@@ -26,12 +26,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2013121905;   // The (date) version of this plugin.
+$plugin->version  = 2025010305;   // The (date) version of this plugin.
 $plugin->requires = 2022112801;   // Requires this Moodle version.
 $plugin->component = 'local_staticguitexts';
-$plugin->release = '4.1.0 (Build 2013121905)';
+$plugin->release = '4.5.0 (Build 2013121905)';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->supported = [401, 402];
+$plugin->supported = [401, 405];
 
 // Non moodle attributes.
 $plugin->codeincrement = '4.1.0000';
