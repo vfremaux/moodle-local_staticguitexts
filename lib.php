@@ -52,7 +52,7 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $context = context_course::instance($COURSE->id);
 
     require_once($CFG->dirroot.'/lib/filelib.php');
-    $txt = file_rewrite_pluginfile_urls(@$CFG->$key, 'pluginfile.php', $context->id, 'local_staticguitexts', $key, 0);
+    $txt = file_rewrite_pluginfile_urls($CFG->$key ?? '', 'pluginfile.php', $context->id, 'local_staticguitexts', $key, 0);
     $txt = str_replace('[[WWWROOT]]', preg_replace('/https?:\/\//', '', $CFG->wwwroot), $txt);
     $txt = str_replace('[[COURSEID]]', $COURSE->id, $txt);
     $txt = str_replace('[[COURSENAME]]', format_string($COURSE->fullname), $txt);
@@ -66,6 +66,8 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $hasclass = '';
     if (!empty($txt)) {
         $hasclass = 'has-text';
+    } else {
+        $hasclass = 'empty';
     }
     $out .= $OUTPUT->box_start('statictext '.$hasclass);
     $opt = new StdClass;
