@@ -18,7 +18,6 @@
  * Version details.
  *
  * @package    local_staticguitexts
- * @category   local
  * @author     Valery Fremaux (valery.fremaux@gmail.com)
  * @copyright  2016 onwards Valery Fremaux (valery.fremaux@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,13 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2025010305;   // The (date) version of this plugin.
+$plugin->version  = 2026041300;   // The (date) version of this plugin.
 $plugin->requires = 2022112801;   // Requires this Moodle version.
 $plugin->component = 'local_staticguitexts';
-$plugin->release = '4.5.0 (Build 2013121905)';
+$plugin->release = '5.1.0 (Build 2026041300)';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->supported = [401, 405];
+$plugin->supported = [500, 503];
 
 // Non moodle attributes.
-$plugin->codeincrement = '4.5.0000';
+$plugin->codeincrement = '5.1.0000';
 $plugin->privacy = 'public';
