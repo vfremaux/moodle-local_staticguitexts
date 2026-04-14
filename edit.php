@@ -15,15 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    local_staticguitexts
- * @category   local
- * @author     Valery Fremaux <valery@valeisti.fr>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
- * @copyright  (C) 1999 onwards Martin Dougiamas  http://dougiamas.com
+ * This file allows edition of embedded text using a just in place editing caller link.
  *
- * This file allows edition of embedded text using a "just in place" editing caller
- * link.
- *
+ * @package     local_staticguitexts
+ * @author      Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright   2004 onwards Valery Fremaux (https://www.activeprolearn.com)
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL
  */
 require('../../config.php');
 require_once($CFG->dirroot.'/local/staticguitexts/value_edit_form.php');
@@ -46,7 +43,7 @@ $PAGE->set_url('/local/staticguitexts/edit.php');
 $PAGE->set_title("$streditguitexts");
 $PAGE->set_heading("$streditguitexts");
 
-$mform = new ValueEditForm($key, array('fromurl' => $fromurl));
+$mform = new ValueEditForm($key, ['fromurl' => $fromurl]);
 $formdata = new StdClass;
 $formdata->value = @$CFG->$key;
 $formdata->valueformat = FORMAT_HTML;
