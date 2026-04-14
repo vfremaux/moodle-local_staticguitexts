@@ -14,13 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-// Capabilities
-$string['staticguitexts:edit'] = 'Edit static texts';
+/**
+ * Language file
+ *
+ * @package    local_staticguitexts
+ * @author     Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright  (C) 2004 onwards Valery Fremaux https://www.activeprolearn.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ */
 
-// Privacy
-$string['privacy:metadata'] = 'The Local StaticGuiTexts plugin does not store any personal data about any user.';
-
-$string['pluginname'] = 'Static GUI texts';
 $string['adminstrings'] = 'Static strings';
-$string['statickey'] = 'Static entry identifier: ';
 $string['originurl'] = 'Published on: ';
+$string['pluginname'] = 'Static GUI texts';
+$string['privacy:metadata'] = 'The Local StaticGuiTexts plugin does not store any personal data about any user.';
+$string['staticguitexts:edit'] = 'Edit static texts';
+$string['statickey'] = 'Static entry identifier: ';

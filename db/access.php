@@ -14,14 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Capabilities
+ *
+ * @package    local_staticguitexts
+ * @author     Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright  (C) 2004 onwards Valery Fremaux https://www.activeprolearn.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'local/staticguitexts:edit' => array(
+$capabilities = [
+    'local/staticguitexts:edit' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW
-        )
-    ),
-);
+        'archetypes' => [
+            'manager' => CAP_ALLOW,
+        ],
+    ],
+];

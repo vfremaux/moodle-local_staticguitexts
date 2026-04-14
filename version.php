@@ -18,9 +18,9 @@
  * Version details.
  *
  * @package    local_staticguitexts
- * @author     Valery Fremaux (valery.fremaux@gmail.com)
- * @copyright  2016 onwards Valery Fremaux (valery.fremaux@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright  (C) 2004 onwards Valery Fremaux https://www.activeprolearn.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
  */
 
 defined('MOODLE_INTERNAL') || die();

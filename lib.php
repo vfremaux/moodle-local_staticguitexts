@@ -15,13 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package     local_staticguitexts
- * àcategory    local
- * @author      Valery Fremaux <valery.fremaux@gmail.com>
- * @copyright   Valery Fremaux <valery.fremaux@gmail.com> (MyLearningFactory.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * General lib.
+ *
+ * @package    local_staticguitexts
+ * @author     Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright  (C) 2004 onwards Valery Fremaux https://www.activeprolearn.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
  */
 
+// phpcs:disable moodle.Commenting.ValidTags.Invalid
+
+// phpcs:disable moodle.Files.MoodleInternal.MoodleInternalGlobalState
 // This is a bit more complex security resolution for script that may be called before setup.php.
 if (!defined('MOODLE_EARLY_INTERNAL')) {
     defined('MOODLE_INTERNAL') || die();
@@ -29,7 +33,7 @@ if (!defined('MOODLE_EARLY_INTERNAL')) {
 
 /**
  * This function is not implemented in thos plugin, but is needed to mark
- * the vf documentation custom volume availability.
+ * the apl documentation custom volume availability.
  */
 function local_staticguitexts_supports_feature() {
     assert(1);
@@ -42,8 +46,10 @@ function local_staticguitexts_supports_feature() {
  *
  * @param string $key the unique key for this admin static text
  * @param string $returnurl the url where to return to where the text is exposed
+ * @param string $extracapability an additional capability needed to see the text
+ * @param bool $return if true, returns the text rather than printing it to output
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-
 function local_print_static_text($key, $returnurl, $extracapability = false, $return = false) {
     global $CFG, $COURSE, $USER, $OUTPUT, $SITE;
 
@@ -52,7 +58,7 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $context = context_course::instance($COURSE->id);
 
     require_once($CFG->dirroot.'/lib/filelib.php');
-    $txt = file_rewrite_pluginfile_urls(@$CFG->$key, 'pluginfile.php', $context->id, 'local_staticguitexts', $key, 0);
+    $txt = file_rewrite_pluginfile_urls($CFG->$key ?? '', 'pluginfile.php', $context->id, 'local_staticguitexts', $key, 0);
     $txt = str_replace('[[WWWROOT]]', preg_replace('/https?:\/\//', '', $CFG->wwwroot), $txt);
     $txt = str_replace('[[COURSEID]]', $COURSE->id, $txt);
     $txt = str_replace('[[COURSENAME]]', format_string($COURSE->fullname), $txt);
@@ -66,6 +72,8 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     $hasclass = '';
     if (!empty($txt)) {
         $hasclass = 'has-text';
+    } else {
+        $hasclass = 'empty';
     }
     $out .= $OUTPUT->box_start('statictext '.$hasclass);
     $opt = new StdClass;
@@ -85,7 +93,7 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     if (has_capability('local/staticguitexts:edit', context_course::instance(SITEID)) ||
             has_capability('local/staticguitexts:edit', $syscontext) || $extracap) {
         $url = urlencode($returnurl);
-        $params = array('key' => $key, 'from' => $url, 'extra' => $extracapability);
+        $params = ['key' => $key, 'from' => $url, 'extra' => $extracapability];
         $targeturl = new moodle_url('/local/staticguitexts/edit.php', $params);
         $out .= '<br/><a href="'.$targeturl.'">'.$OUTPUT->pix_icon('edit', get_string('update'), 'local_staticguitexts').'</a>';
     }
@@ -97,6 +105,16 @@ function local_print_static_text($key, $returnurl, $extracapability = false, $re
     echo $out;
 }
 
+/**
+ * Core plugin's access to files
+ * @param object $course
+ * @param object $cm
+ * @param object $context
+ * @param object $filearea
+ * @param array $args other arguments
+ * @param bool $forcedownload
+ * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ */
 function local_staticguitexts_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload) {
 
     if ($context->contextlevel != CONTEXT_COURSE) {
@@ -109,7 +127,7 @@ function local_staticguitexts_pluginfile($course, $cm, $context, $filearea, $arg
     array_shift($args); // Remove useless itemid.
     $relativepath = implode('/', $args);
     $fullpath = "/$context->id/local_staticguitexts/$filearea/0/$relativepath";
-    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
+    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) || $file->is_directory()) {
         return false;
     }
 

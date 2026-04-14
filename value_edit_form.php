@@ -15,38 +15,54 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package     local_staticguitexts
- * àcategory    local
- * @author      Valery Fremaux <valery.fremaux@gmail.com>
- * @copyright   Valery Fremaux <valery.fremaux@gmail.com> (MyLearningFactory.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Form to edit text value
+ *
+ * @package    local_staticguitexts
+ * @author     Valery Fremaux <valery.fremaux@gmail.com>
+ * @copyright  (C) 2004 onwards Valery Fremaux https://www.activeprolearn.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
  */
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir.'/formslib.php');
 
+/**
+ * Value edition form
+ */
 class ValueEditForm extends moodleform {
 
+    /** @var string $key */
     private $key;
 
+    /** @var string $editoroptions */
     public $editoroptions;
 
+    /**
+     * Standard constructor
+     * @param string $key
+     * @param array $customdata an array of key = values to inject in value
+     */
     public function __construct($key, $customdata) {
         global $CFG;
 
         $this->key = $key;
 
         $coursecontext = context_course::instance(SITEID);
-        $maxfiles = 99; // TODO: add some setting.
-        $maxbytes = $CFG->maxbytes; // TODO: add some setting.
-        $this->editoroptions = array('trusttext' => true,
-                                     'subdirs' => false,
-                                     'maxfiles' => $maxfiles,
-                                     'maxbytes' => $maxbytes,
-                                     'context' => $coursecontext);
+        $maxfiles = 99;
+        $maxbytes = $CFG->maxbytes;
+        $this->editoroptions = [
+            'trusttext' => true,
+            'subdirs' => false,
+            'maxfiles' => $maxfiles,
+            'maxbytes' => $maxbytes,
+            'context' => $coursecontext,
+        ];
         parent::__construct(null, $customdata);
     }
 
+    /**
+     * Form definition
+     */
     public function definition() {
 
         $mform = & $this->_form;
@@ -62,12 +78,17 @@ class ValueEditForm extends moodleform {
         }
 
         $mform->addElement('static', 'statickey', get_string('statickey', 'local_staticguitexts'), $keystr);
-        $mform->addElement('static', 'originurl', get_string('originurl', 'local_staticguitexts'), $this->_customdata['fromurl']);
-        $mform->addElement('editor', 'value', '', array('cols' => 60), $this->editoroptions);
+        $url = $this->_customdata['fromurl'];
+        $mform->addElement('static', 'originurl', get_string('originurl', 'local_staticguitexts'), $url);
+        $mform->addElement('editor', 'value', '', ['cols' => 60], $this->editoroptions);
 
         $mform->addElement('submit', 'go', get_string('update'));
     }
 
+    /**
+     * Load the form
+     * @param object $defaults
+     */
     public function set_data($defaults) {
         global $COURSE;
 
@@ -80,7 +101,7 @@ class ValueEditForm extends moodleform {
                                                $this->editoroptions, $defaults->value);
         $defaults = file_prepare_standard_editor($defaults, 'value', $this->editoroptions, $context,
                                                  'local_staticguitexts', $this->key, 0);
-        $defaults->value = array('text' => $currenttext, 'format' => FORMAT_HTML, 'itemid' => $drafteditorid);
+        $defaults->value = ['text' => $currenttext, 'format' => FORMAT_HTML, 'itemid' => $drafteditorid];
 
         parent::set_data($defaults);
     }
